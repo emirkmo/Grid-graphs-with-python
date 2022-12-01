@@ -1,7 +1,7 @@
-from grid_graph import GridGraph
-from directions import Diagonal, Cardinal
-from strategies import DepthFirstStrategy, BreadthFirstStrategy
-from islands import get_island_stats
+from .directions import Cardinal, Diagonal
+from .grid_graph import GridGraph
+from .islands import get_island_stats
+from .strategies import BreadthFirstStrategy, DepthFirstStrategy
 
 
 def main() -> None:
@@ -14,5 +14,5 @@ def main() -> None:
             graph.clear_visited()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

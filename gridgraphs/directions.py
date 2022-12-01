@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from typing import Protocol
+from typing import Iterable, Protocol
 
 
 class Offsets(Enum):
@@ -17,7 +17,10 @@ class DirectionProtocol(Protocol):
     def offset(self: Enum) -> tuple[int, int]:
         return Offsets[self.name].value
 
-    def __iter__(self) -> iter:
+    def __iter__(self) -> Iterable[tuple[int, int]]:
+        ...
+
+    def __next__(self) -> tuple[int, int]:
         ...
 
 

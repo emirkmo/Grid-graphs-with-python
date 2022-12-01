@@ -1,9 +1,11 @@
-import numpy as np
 from dataclasses import dataclass, field
-from grid_graph import Graph2D
-from strategies import ExplorationStrategy
-from directions import DirectionProtocol as Direction
 from typing import Optional
+
+import numpy as np
+
+from .directions import DirectionProtocol as Direction
+from .grid_graph import Graph2D
+from .strategies import ExplorationStrategy
 
 
 @dataclass
@@ -18,13 +20,26 @@ class Islands:
         self.get_islands()
 
     def get_islands(self) -> None:
-        self.islands = self._get_islands(self.graph, self.strategy, self.valid_directions)
+        self.islands = self._get_islands(
+            self.graph, self.strategy, self.valid_directions
+        )
 
     # Given GridGraph and Strategy and valid Directions return list of islands
     @staticmethod
-    def _get_islands(graph: Graph2D, strategy: ExplorationStrategy, directions: Direction) -> list[int]:
-        return [size for row in range(graph.rows) for col in range(graph.cols)
-                if (size := strategy.explore(state=graph, directions=directions, row=row, col=col)) > 0]
+    def _get_islands(
+        graph: Graph2D, strategy: ExplorationStrategy, directions: Direction
+    ) -> list[int]:
+        return [
+            size
+            for row in range(graph.rows)
+            for col in range(graph.cols)
+            if (
+                size := strategy.explore(
+                    state=graph, directions=directions, row=row, col=col
+                )
+            )
+            > 0
+        ]
 
     @property
     def island_count(self) -> int:
@@ -53,7 +68,7 @@ class Islands:
 
 @dataclass
 class IslandStats:
-    islands: Islands = field(default_factory=Islands, repr=False)
+    islands: Islands = field(repr=False)
     island_count: Optional[int] = None
     max_island_size: Optional[int] = None
     min_island_size: Optional[int] = None
@@ -72,5 +87,11 @@ class IslandStats:
         self.mode_island_size = self.islands.mode_island_size
 
 
-def get_island_stats(graph: Graph2D, strategy: ExplorationStrategy, valid_directions: Direction) -> IslandStats:
-    return IslandStats(islands=Islands(graph=graph, strategy=strategy, valid_directions=valid_directions))
+def get_island_stats(
+    graph: Graph2D, strategy: ExplorationStrategy, valid_directions: Direction
+) -> IslandStats:
+    return IslandStats(
+        islands=Islands(
+            graph=graph, strategy=strategy, valid_directions=valid_directions
+        )
+    )
