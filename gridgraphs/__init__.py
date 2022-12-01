@@ -1,3 +1,4 @@
+"""Grid graphs and island solutions in 2D and 3D, object-oriented and pure python/numpy."""
 from .directions import *  # noqa F405
 from .grid_graph import *  # noqa F405
 from .islands import *  # noqa F405
