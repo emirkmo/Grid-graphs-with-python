@@ -2,3 +2,4 @@
 .idea/
 
 __pycache__/
+dist/gridgraphs-0.1.0.tar.gz
